@@ -1,11 +1,14 @@
 <?php
 $host = 'localhost';
-$user = 'root';
-$pass = '';
-$dbname = 'kamsis_db';
+$dbname = 'web_kamsis';
+$username = 'root'; // Sesuaikan dengan username database kamu
+$password = '';     // Sesuaikan dengan password database kamu
 
-$conn = new mysqli($host, $user, $pass, $dbname);
-
-if ($conn->connect_error) {
-    die('Koneksi database gagal: ' . $conn->connect_error);
+try {
+    $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
+    // Mengatur mode error PDO menjadi Exception
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch(PDOException $e) {
+    die("Koneksi gagal: " . $e->getMessage());
 }
+?>
